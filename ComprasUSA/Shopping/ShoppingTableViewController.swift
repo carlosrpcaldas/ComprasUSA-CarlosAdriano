@@ -11,37 +11,37 @@ import CoreData
 
 class ShoppingTableViewController: UITableViewController {
 
-    let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 22))
-    var fetchedResultController: NSFetchedResultsController<Product>!
+    let labelLista = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 22))
+    var retrieveResultController: NSFetchedResultsController<Product>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
-        label.text = "Sua lista está vazia!"
-        label.textAlignment = .center
+        labelLista.text = "Sua lista está vazia!"
+        labelLista.textAlignment = .center
         
-        loadProdutcts()
+        loadAllProdutcts()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? AddProductViewController, let indexPath = tableView.indexPathForSelectedRow {
-            vc.produto = fetchedResultController.object(at: indexPath)
+            vc.produto = retrieveResultController.object(at: indexPath)
         }
     }
     
-    func loadProdutcts() {
-        let fetchRequest: NSFetchRequest<Product> = Product.fetchRequest()
+    func loadAllProdutcts() {
+        let retrieveRequest: NSFetchRequest<Product> = Product.fetchRequest()
         
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
+        retrieveRequest.sortDescriptors = [sortDescriptor]
         
-        fetchedResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        retrieveResultController = NSFetchedResultsController(fetchRequest: retrieveRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
         
-        fetchedResultController.delegate = self
+        retrieveResultController.delegate = self
         
         do {
-            try fetchedResultController.performFetch()
+            try retrieveResultController.performFetch()
         } catch {
             print(error.localizedDescription)
         }
@@ -61,11 +61,11 @@ class ShoppingTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if let count = fetchedResultController.fetchedObjects?.count {
-            tableView.backgroundView = (count == 0) ? label : nil
+        if let count = retrieveResultController.fetchedObjects?.count {
+            tableView.backgroundView = (count == 0) ? labelLista : nil
             return count
         } else {
-            tableView.backgroundView = label
+            tableView.backgroundView = labelLista
             return 0
         }
     }
@@ -74,7 +74,7 @@ class ShoppingTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "productCell", for: indexPath) as! ProdutoTableViewCell
         
-        let product = fetchedResultController.object(at: indexPath)
+        let product = retrieveResultController.object(at: indexPath)
         
         cell.lbProductName.text = product.name
         
@@ -97,11 +97,11 @@ class ShoppingTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            let product = fetchedResultController.object(at: indexPath)
+            let product = retrieveResultController.object(at: indexPath)
             context.delete(product)
             do {
                 try context.save()
-                loadProdutcts()
+                loadAllProdutcts()
             } catch {
                 print(error.localizedDescription)
             }

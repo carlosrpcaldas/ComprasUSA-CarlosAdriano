@@ -194,7 +194,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </textField>
-                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cigarrinho" translatesAutoresizingMaskIntoConstraints="NO" id="6Ud-FE-H93">
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="fotoinicial2_gift" translatesAutoresizingMaskIntoConstraints="NO" id="6Ud-FE-H93">
                                 <rect key="frame" x="16" y="141" width="343" height="156"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -380,12 +380,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="cigarrinho" width="494" height="441"/>
         <image name="folder" width="23" height="23"/>
+        <image name="fotoinicial2_gift" width="1764" height="1046"/>
         <image name="gear" width="23" height="23"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sF0-1z-0ML"/>
+        <segue reference="WBV-md-hgf"/>
         <segue reference="Kvq-bU-TZU"/>
     </inferredMetricsTieBreakers>
 </document>
