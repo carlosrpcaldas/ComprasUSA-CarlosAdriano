@@ -35,6 +35,7 @@ class AddProductViewController: UIViewController {
         tfValue.addTarget(self, action: #selector(editingChanged), for: .editingChanged)
         tfValue.keyboardType = .decimalPad
         
+        
         if produto != nil{
             tfProductName.text = produto.name
             tfPruductState.text = produto.states?.name

@@ -5,6 +5,8 @@
 //  Created by admin on 4/22/18.
 //  Copyright © 2018 Carlos P Caldas. All rights reserved.
 //
+//  Copyright © 2018 Adriano R P L. All rights reserved.
+//
 
 import UIKit
 

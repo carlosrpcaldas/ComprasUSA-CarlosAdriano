@@ -5,6 +5,7 @@
 //  Created by admin on 4/17/18.
 //  Copyright © 2018 Carlos P Caldas. All rights reserved.
 //
+//  Copyright © 2018 Adriano R P L. All rights reserved.
 
 import UIKit
 import CoreData
@@ -90,9 +91,16 @@ class ShoppingTableViewController: UITableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        let backButton = UIBarButtonItem()
+        backButton.title = "Back"
+        navigationItem.backBarButtonItem = backButton
+        
         if let vc = segue.destination as? AddProductViewController {
             if tableView.indexPathForSelectedRow != nil {
                 vc.produto = fetchedResultController.object(at: tableView.indexPathForSelectedRow!)
+
+                
             }
         }
     }

@@ -68,14 +68,29 @@ var data: [Product] = []
             //print("Valor do imposto CoreData: \(product.states?.taxes)")
             
             // calculo dolar total + % imposto estado
-            if Int(product.states!.taxes) > 0 {
-                stTaxes = product.states!.taxes
-                print("Valor do imposto : \(stTaxes)")
-                //number=(percentage/100)*totalNumber
-                totalDolarTaxes = ((product.states!.taxes/100) * product.value) + product.value
-            }else {
-                totalDolarTaxes = product.value
+            
+            enum Optional<T> {
+                case None
+                case Some(T)
+                
+                init(_ value: T) {
+                    self = .Some(value)
+                }
+                
+                init() {
+                    self = .None
+                }
             }
+            
+
+            if Int(product.states!.taxes) > 0  {
+                    stTaxes = product.states!.taxes
+                    print("Valor do imposto : \(stTaxes)")
+                    //number=(percentage/100)*totalNumber
+                    totalDolarTaxes = ((product.states!.taxes/100) * product.value) + product.value
+                }else {
+                    totalDolarTaxes = product.value
+                }
 
             
             // total de dolar com imposto  - exibe na tela
