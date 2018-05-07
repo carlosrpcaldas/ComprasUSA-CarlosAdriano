@@ -65,7 +65,7 @@ var data: [Product] = []
             let totalDolarTaxes: Double
             var totalRValue: Double
             
-            print("Valor do imposto CoreData: \(product.states?.taxes)")
+            //print("Valor do imposto CoreData: \(product.states?.taxes)")
             
             // calculo dolar total + % imposto estado
             if Int(product.states!.taxes) > 0 {

@@ -111,13 +111,8 @@ class SettingViewController: UIViewController {
 
 extension SettingViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // let state = dataSource[indexPath.row]
-        let cell = tableView.cellForRow(at: indexPath)!
-        if cell.accessoryType == .none {
-            //cell.accessoryType = .checkmark
-        } else {
-            //cell.accessoryType = .none
-        }
+        //let cell = tableView.cellForRow(at: indexPath)!
+
         tableView.deselectRow(at: indexPath, animated: false)
     }
     
@@ -132,6 +127,8 @@ extension SettingViewController: UITableViewDelegate {
             try! self.context.save()
             self.data.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            
         }
         
         let editAction = UITableViewRowAction(style: .normal, title: "Editar") { (action: UITableViewRowAction, indexPath: IndexPath) in
