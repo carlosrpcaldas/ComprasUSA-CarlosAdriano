@@ -38,7 +38,7 @@ var data: [Product] = []
             var totalNetValue: Double = 0
             for product in data {
                 totalGrossValue += product.value
-                totalNetValue += calculateNetValue(product)
+                totalNetValue += calculateTotal(product)
             }
             
             lbTotalUS.text = String( totalGrossValue )
@@ -57,27 +57,54 @@ var data: [Product] = []
             }
         }
         
-        func calculateNetValue(_ product: Product) -> Double {
+        func calculateTotal(_ product: Product) -> Double {
             
             let cotacao = UserDefaults.standard.double(forKey: "dolar_preference")
             let iof = UserDefaults.standard.double(forKey: "iof_preference")
-            let realValue = (product.value * cotacao)
             let stTaxes: Double
+            let totalDolarTaxes: Double
+            var totalRValue: Double
             
+            print("Valor do imposto CoreData: \(product.states?.taxes)")
+            
+            // calculo dolar total + % imposto estado
+            if Int(product.states!.taxes) > 0 {
+                stTaxes = product.states!.taxes
+                print("Valor do imposto : \(stTaxes)")
+                //number=(percentage/100)*totalNumber
+                totalDolarTaxes = ((product.states!.taxes/100) * product.value) + product.value
+            }else {
+                totalDolarTaxes = product.value
+            }
+
+            
+            // total de dolar com imposto  - exibe na tela
+            
+            print("total de dolar com imposto: \(totalDolarTaxes)")
+
+            // calculo de com imposto * cotacao do dolar
+            // valor em reais
+            let realValue = totalDolarTaxes * cotacao
+            totalRValue = realValue
+            print("valor em reais: \(totalRValue)")
+            
+
+//            if iof > 0{
+//                totalRValue = realValue * (realValue * iof/100)
+//            }
+            
+            // valor em reias * o IOF
+            // Total em reais - exibe na tela
+
+            return product.card ? totalRValue + ((iof/100) * totalRValue)  : totalRValue
+
             //data = formater.string(from: product.states!.taxes)
             // formatter.locale = Locale(identifier: "pt-BR")
             // formater.numberstyle = .none
             // print(textfield.text!)
             
-            if Int(product.states!.taxes) <= 0 {
-                stTaxes = product.states!.taxes
-            }else {
-                stTaxes = 1.0
-            }
+
             
-            let netValue = realValue * (1 + stTaxes/100)
-            
-            return product.card ? netValue * (1 + iof/100) : netValue
         }
         
         override func didReceiveMemoryWarning() {

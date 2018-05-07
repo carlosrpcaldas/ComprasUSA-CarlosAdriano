@@ -167,7 +167,11 @@ class AddProductViewController: UIViewController {
             produto.title = smallImage
         }
         do {
+            print("Label estado:  \(tfPruductState.text!)")
+            print("CodeData estado:  \(produto.states!)")
+            
             try context.save()
+            
             close()
         } catch {
             print(error.localizedDescription)
